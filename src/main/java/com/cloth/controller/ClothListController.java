@@ -31,7 +31,7 @@ public class ClothListController {
 
     @RequestMapping(value = "/getclothlistbycondition",method = RequestMethod.POST)
     public Result getListByCondition(@RequestBody ClothList clothList){
-        return new Result(true, StatusCode.SUCCESS,"按条件查找服装信息列表成功", clothListService.findClothListByCondition(clothList.getStatus(), clothList.getDetail(), clothList.getUserlistId()));
+        return new Result(true, StatusCode.SUCCESS,"按条件查找服装信息列表成功", clothListService.findClothListByCondition(clothList.getStatus(), clothList.getClothType(), clothList.getUserlistId()));
     }
 
     @RequestMapping(value="/addcloth",method = RequestMethod.POST)
@@ -49,7 +49,7 @@ public class ClothListController {
         }
     }
 
-    @RequestMapping(value="/updatehouse",method = RequestMethod.POST)
+    @RequestMapping(value="/updatecloth",method = RequestMethod.POST)
     public Result updateHouse(@RequestBody ClothList clothList){
         ClothExecution he;
         try{

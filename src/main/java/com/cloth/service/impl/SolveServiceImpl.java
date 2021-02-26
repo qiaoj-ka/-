@@ -31,9 +31,14 @@ public class SolveServiceImpl extends ServiceImpl<SolveMapper, Solve> implements
 
     @Override
     public List<Solve> findSolveListByCondition(String status, String name, String clothDetail, Integer userlist_id) {
+        if(status==null&&name==null&&clothDetail==null&&userlist_id==null){
+            return solveMapper.selectList(new QueryWrapper<Solve>());
+        }
         QueryWrapper<Solve> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("userlist_id",userlist_id);
-
+        queryWrapper.eq("userlist_id",userlist_id).or()
+                .eq("status",status).or()
+                .eq("cloth_type",clothDetail).or()
+                .eq("name",name);
         return solveMapper.selectList(queryWrapper);
     }
 

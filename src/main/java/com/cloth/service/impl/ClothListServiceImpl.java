@@ -41,8 +41,11 @@ public class ClothListServiceImpl extends ServiceImpl<ClothListMapper, ClothList
     public List<ClothList> findClothListByCondition(String status, String detail, Integer userlistId) {
         QueryWrapper<ClothList> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("status",status).or()
-                .eq("detail",detail).or()
+                .eq("cloth_type",detail).or()
                 .eq("userlist_id",userlistId);
+        if(status==null&&detail==null&&userlistId==null){
+            return clothListMapper.selectList(new QueryWrapper<ClothList>());
+        }
         return clothListMapper.selectList(queryWrapper);
     }
 
