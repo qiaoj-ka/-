@@ -62,7 +62,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         User user = new User();
         user.setUsername(userList.getName());
-        user.setPassword(userList.getPhone());
+        user.setPassword(Integer.toString(userList.getUserId()));
         user.setType(userList.getType());
         try{
             int effectedNum = userMapper.insert(user);

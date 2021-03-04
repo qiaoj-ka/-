@@ -78,4 +78,6 @@ public class ClothListController {
             return new Result(false,StatusCode.ERROR,"删除服装信息失败：" + e.toString());
         }
     }
+
+
 }

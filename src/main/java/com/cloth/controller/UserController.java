@@ -10,6 +10,8 @@ import com.cloth.pojo.PasswordVO;
 import com.cloth.pojo.UserExecution;
 import com.cloth.service.IUserListService;
 import com.cloth.service.IUserService;
+import com.cloth.util.CreateIDCardNo;
+import com.cloth.util.CreateData;
 import com.cloth.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -135,5 +137,23 @@ public class UserController {
         }catch (Exception e){
             return new Result(false,StatusCode.ERROR,"修改密码失败：" + e.toString());
         }
+    }
+
+    @GetMapping("/createData")
+    public String createData(){
+        int count=100;
+        while (count-->0){
+            UserList userList=new UserList();
+            //生成随机身份证
+            CreateIDCardNo cre = new CreateIDCardNo();
+            String randomID = cre.getRandomID();
+            userList.setIdCard(randomID);
+            userList.setName(CreateData.getName());
+            userList.setPhone(CreateData.getTel());
+            userList.setUserId((int)((Math.random()*9+1)*100000));
+            userList.setType(0);
+            userService.addUserListAndUserAccount(userList);
+        }
+        return "success";
     }
 }
